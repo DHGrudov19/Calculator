@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class Calculator extends Application {
 
     TextField textField;
@@ -89,13 +91,39 @@ public class Calculator extends Application {
         gridPane.add(btnZero,1,5);
         gridPane.add(btnEquals,3,5);
 
-        
+        //Events
+        btnZero.setOnAction(event->handleButtonPressNumber("0"));
+        btnOne.setOnAction(event->handleButtonPressNumber("1"));
+        btnTwo.setOnAction(event->handleButtonPressNumber("2"));
+        btnThree.setOnAction(event->handleButtonPressNumber("3"));
+        btnFour.setOnAction(event->handleButtonPressNumber("4"));
+        btnFive.setOnAction(event->handleButtonPressNumber("5"));
+        btnSix.setOnAction(event->handleButtonPressNumber("6"));
+        btnSeven.setOnAction(event->handleButtonPressNumber("7"));
+        btnEight.setOnAction(event->handleButtonPressNumber("8"));
+        btnNine.setOnAction(event->handleButtonPressNumber("9"));
+
+        btnClear.setOnAction(event->handleButtonPressClear());
         //Show app
         Scene scene= new Scene(gridPane);
         stage.setScene(scene);
         stage.show();
     }
 
+    private void handleButtonPressNumber(String btnValue)
+    {
+        if(Objects.equals(textField.getText(),"0")&& !Objects.equals(btnValue,"0"))
+        {
+            textField.setText(btnValue);
+        }
+        else if(!Objects.equals(textField.getText(),"0")) {
+            textField.setText(textField.getText()+btnValue);
+        }
+    }
+
+    private void handleButtonPressClear() {
+        textField.setText("0");
+    }
     public static void main(String[] args) {
         launch();
     }
